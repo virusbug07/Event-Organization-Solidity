@@ -3,7 +3,9 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity >=0.5.0 <0.9.0;
 
-contract EventContract is ReentracyGuard {  //Creating a contract
+//Creating a contract
+
+contract EventContract{  
  struct Event{
    address organizer;
    string name;
@@ -13,7 +15,7 @@ contract EventContract is ReentracyGuard {  //Creating a contract
    uint ticketRemain;
  }
  
- mapping(uint=>Event) public events;  //mapping uint to events
+ mapping(uint=>Event) public events;  //mapping uint to events(giving id to events)
  mapping(address=>mapping(uint=>uint)) public tickets;
  uint public nextId;
  
