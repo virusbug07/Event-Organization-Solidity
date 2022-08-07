@@ -2,8 +2,8 @@
 
 //SPDX-License-Identifier: Unlicense
 pragma solidity >=0.5.0 <0.9.0;
- 
-contract EventContract {
+
+contract EventContract is ReentracyGuard {  //Creating a contract
  struct Event{
    address organizer;
    string name;
@@ -13,10 +13,11 @@ contract EventContract {
    uint ticketRemain;
  }
  
- mapping(uint=>Event) public events;
+ mapping(uint=>Event) public events;  //mapping uint to events
  mapping(address=>mapping(uint=>uint)) public tickets;
  uint public nextId;
  
+ //Create Event Function
  
  function createEvent(string memory name,uint date,uint price,uint ticketCount) external{
    require(date>block.timestamp,"You can organize event for future date");
@@ -26,17 +27,21 @@ contract EventContract {
    nextId++;
  }
  
+//Buy Ticket Function
+
  function buyTicket(uint id,uint quantity) external payable{
    require(events[id].date!=0,"Event does not exist");
    require(events[id].date>block.timestamp,"Event has already occured");
    Event storage _event = events[id];
-   require(msg.value==(_event.price*quantity),"Ethere is not enough");
+   require(msg.value==(_event.price*quantity),"Ether is not enough");
    require(_event.ticketRemain>=quantity,"Not enough tickets");
    _event.ticketRemain-=quantity;
    tickets[msg.sender][id]+=quantity;
  
  }
  
+//Transfer Ticket Function
+
  function transferTicket(uint id,uint quantity,address to) external{
    require(events[id].date!=0,"Event does not exist");
    require(events[id].date>block.timestamp,"Event has already occured");
