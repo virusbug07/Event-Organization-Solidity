@@ -1,7 +1,6 @@
 # Event-Organization-Solidity
-Solidity Smart Contract for Event Organization
-*Events Can be created*
-<br>
+Solidity Smart Contract for Event Organization<br>
+*Events Can be created*<br>
 *Tickets can be buyed from different wallets and addresses*<br>
 *Tickets can be transferred to any address just like crypto coins and tokens*<br>
 
